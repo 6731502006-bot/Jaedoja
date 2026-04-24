@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<body>
+
+<h1>📊 Dashboard</h1>
+<canvas id="chart"></canvas>
+
+<script>
+async function load(){
+  const res = await fetch("/admin");
+  const data = await res.json();
+
+  const ctx = document.getElementById("chart");
+
+  new Chart(ctx,{
+    type:"bar",
+    data:{
+      labels:data.chart.map(x=>x.zone),
+      datasets:[{
+        label:"Bookings",
+        data:data.chart.map(x=>x.count)
+      }]
+    }
+  });
+}
+
+load();
+</script>
+
+</body>
+</html>

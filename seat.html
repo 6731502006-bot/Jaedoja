@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#0b0b0b;
+  color:white;
+  text-align:center;
+}
+
+h1{
+  margin-top:20px;
+}
+
+/* 🎟 zone list */
+.zone-container{
+  width:90%;
+  max-width:500px;
+  margin:20px auto;
+}
+
+.zone{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 20px;
+  margin:10px 0;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.2s;
+  font-weight:bold;
+}
+
+/* colors per zone */
+.vip{background:#ff2d75;}
+.a{background:#4fc3f7;}
+.b{background:#ff9800;}
+.c{background:#66bb6a;}
+
+.zone:hover{
+  transform:scale(1.02);
+  opacity:0.9;
+}
+
+.selected{
+  outline:3px solid white;
+}
+
+/* form */
+.form{
+  width:90%;
+  max-width:400px;
+  margin:20px auto;
+  background:#1c1c1c;
+  padding:20px;
+  border-radius:12px;
+}
+
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border:none;
+  border-radius:8px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:#ff2d75;
+  border:none;
+  color:white;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover{
+  opacity:0.9;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🎤 FLOWER CONCERT - Select Zone</h1>
+
+<p>เลือกโซนที่นั่ง (ราคาตามโซน)</p>
+
+<!-- 🎯 ZONES -->
+<div class="zone-container">
+
+  <div class="zone vip" onclick="selectZone(this,'VIP')">
+    <span>VIP Zone</span>
+    <span>6000฿</span>
+  </div>
+
+  <div class="zone a" onclick="selectZone(this,'A')">
+    <span>Zone A</span>
+    <span>4000฿</span>
+  </div>
+
+  <div class="zone b" onclick="selectZone(this,'B')">
+    <span>Zone B</span>
+    <span>2500฿</span>
+  </div>
+
+  <div class="zone c" onclick="selectZone(this,'C')">
+    <span>Zone C</span>
+    <span>1500฿</span>
+  </div>
+
+</div>
+
+<!-- 🧾 FORM -->
+<div class="form">
+
+  <h3>🧾 Booking Information</h3>
+
+  <input id="name" placeholder="ชื่อ-นามสกุล">
+  <input id="email" placeholder="Email">
+  <input id="phone" placeholder="เบอร์โทร">
+
+  <button onclick="book()">🎟 Confirm Booking</button>
+
+</div>
+
+<script>
+let selectedZone="VIP";
+let lastSelected=null;
+
+function selectZone(el,zone){
+
+  selectedZone = zone;
+
+  if(lastSelected){
+    lastSelected.classList.remove("selected");
+  }
+
+  el.classList.add("selected");
+  lastSelected = el;
+}
+
+async function book(){
+
+  const res = await fetch("/book",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      zone:selectedZone,
+      name:document.getElementById("name").value,
+      email:document.getElementById("email").value,
+      phone:document.getElementById("phone").value
+    })
+  });
+
+  const data = await res.json();
+
+  localStorage.setItem("ticket",JSON.stringify(data));
+
+  location.href="ticket.html";
+}
+</script>
+
+</body>
+</html>

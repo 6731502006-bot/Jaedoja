@@ -1,0 +1,55 @@
+﻿body{
+  background:#0b0b0b;
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+}
+
+.card{
+  background:white;
+  color:black;
+  width:300px;
+  margin:auto;
+  padding:20px;
+  border-radius:12px;
+}
+
+input{
+  width:90%;
+  padding:8px;
+}
+
+button{
+  padding:10px 20px;
+  background:#ff3ea5;
+  border:none;
+  color:white;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.zones div{
+  background:#222;
+  margin:10px auto;
+  width:200px;
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.ticket{
+  background:white;
+  color:black;
+  width:350px;
+  margin:auto;
+  padding:20px;
+  border-radius:12px;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border:none;
+  border-radius:8px;
+  box-sizing:border-box; /* 👈 เพิ่มบรรทัดนี้ */
+}

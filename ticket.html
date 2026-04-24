@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+
+<!-- barcode library -->
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+</head>
+
+<body>
+
+<h1>🎫 FLOWER TICKET</h1>
+
+<div id="t"></div>
+
+<button onclick="window.print()">🖨 Print Ticket</button>
+
+<script>
+const t = JSON.parse(localStorage.getItem("ticket"));
+
+async function load(){
+
+  const qr = await fetch("/qr",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(t)
+  });
+
+  const q = await qr.json();
+
+  document.getElementById("t").innerHTML = `
+    <div class="ticket">
+
+      <h2>🌸 FLOWER CONCERT</h2>
+
+      <p><b>Name:</b> ${t.name}</p>
+      <p><b>Email:</b> ${t.email}</p>
+      <p><b>Phone:</b> ${t.phone}</p>
+
+      <hr>
+
+      <p><b>Zone:</b> ${t.zone}</p>
+      <p><b>Seat:</b> ${t.seat}</p>
+      <p><b>Price:</b> ${t.price}</p>
+      <p><b>ID:</b> ${t.id}</p>
+
+      <img src="${q.qr}" width="150">
+
+      <svg id="barcode"></svg>
+
+    </div>
+  `;
+
+  JsBarcode("#barcode", t.id, {
+    format:"CODE128",
+    displayValue:true
+  });
+}
+
+load();
+</script>
+
+</body>
+</html>

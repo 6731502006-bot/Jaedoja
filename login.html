@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+body{
+  background:#0b0b0b;
+  color:white;
+  font-family:sans-serif;
+  text-align:center;
+}
+
+.card{
+  background:#1c1c1c;
+  width:360px;
+  margin:80px auto;
+  padding:20px;
+  border-radius:12px;
+}
+
+h1{
+  margin-top:40px;
+}
+
+input{
+  width:90%;
+  padding:10px;
+  margin:6px 0;
+  border:none;
+  border-radius:8px;
+}
+
+button{
+  width:95%;
+  padding:10px;
+  margin:6px 0;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.email{background:#ff2d75;color:white;}
+.fb{background:#1877f2;color:white;}
+.phone{background:#4caf50;color:white;}
+.confirm{background:white;color:black;}
+.note{color:#aaa;font-size:12px;margin:5px 0;}
+</style>
+
+</head>
+
+<body>
+
+<h1>🌸 FLOWER CONCERT LOGIN</h1>
+
+<div class="card">
+
+  <!-- INPUT -->
+  <input id="email" placeholder="gmail">
+  <input id="phone" placeholder="phone">
+
+  <p class="note">กรอกหรือไม่กรอกก็ได้ แล้วกด Confirm</p>
+
+  <!-- 🔘 CONFIRM BUTTON (ตัวที่คุณต้องการ) -->
+  <button class="confirm" onclick="confirmLogin()">➡️ CONFIRM (Skip to Next)</button>
+
+  <hr style="opacity:0.2">
+
+  <!-- LOGIN OPTIONS -->
+  <button class="email" onclick="login('email')">Login with Email</button>
+  <button class="fb" onclick="login('facebook')">Login with Facebook</button>
+  <button class="phone" onclick="login('phone')">Login with Phone</button>
+
+</div>
+
+<script>
+
+// 🔐 normal login
+function login(type){
+
+  localStorage.setItem("loginType",type);
+  localStorage.setItem("email",document.getElementById("email").value);
+  localStorage.setItem("phone",document.getElementById("phone").value);
+
+  location.href="continue.html";
+}
+
+// 🔘 CONFIRM (skip login)
+function confirmLogin(){
+
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+
+  localStorage.setItem("loginType","confirm");
+  localStorage.setItem("email",email || "guest@flower.com");
+  localStorage.setItem("phone",phone || "-");
+
+  // 👉 ไปหน้าถัดไป
+  location.href="continue.html";
+}
+
+</script>
+
+</body>
+</html>
